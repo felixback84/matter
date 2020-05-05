@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Matter js</title>
+		<script src="./lib/matter.js"></script>
+		<script src="./box.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+	</head>
+	<body>
+
+		<script >
+
+			let Engine = Matter.Engine;
+			let	World = Matter.World;
+			let	Bodies = Matter.Bodies;
+
+			let engine;	
+			let world;
+			let boxes = [];
+
+			let ground;
+
+			function setup(){
+
+				createCanvas(800, 400);
+
+				// initial set of fisic enviroment
+				engine = Engine.create();
+				world = engine.world;
+				Engine.run(engine);
+
+				// floor settings 
+				let options = {
+					isStatic: true
+				}
+
+				// floor
+				ground = Bodies.rectangle(400,height - 50,width,100,options);
+				// add flor to World
+				World.add(world, ground);
+			
+			}	
+
+			// for click
+			// function mousePressed(){
+			// 	boxes.push(new Box(mouseX,mouseY,20,20));
+			// }
+
+
+			// for dragg
+			function mouseDragged(){
+				// to create one box
+				//boxes.push(new Box(mouseX,mouseY,20,20));
+				boxes.push(new Box(mouseX,mouseY,random(10,40),random(10,40)));
+			}
+
+
+			function draw(){
+				background(51);
+
+				// looping to show
+				for(let i = 0; i < boxes.length; i++){
+					boxes[i].show();
+				}
+
+				// draw floor
+				noStroke(255);
+				fill(170);
+				rectMode(CENTER);
+				rect(ground.position.x, ground.position.y, width, 100);
+				
+			}
+
+		</script>
+
+	</body>
+</html>
